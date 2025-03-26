@@ -17,3 +17,4 @@ CREATE USER 'thomas'@'localhost' IDENTIFIED BY 'JPALbMyg';
 GRANT ALL PRIVILEGES ON *.* TO 'thomas'@'localhost' WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
+
