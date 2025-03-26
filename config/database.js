@@ -5,6 +5,7 @@ const pool = mariadb.createPool({
   user: 'thomas',
   password: 'JPALbMyg',
   database: 'bookdb',
-  connectionLimit: 5
+  connectionLimit: 5,
+  allowPublicKeyRetrieval: true
 });
 module.exports = pool;
