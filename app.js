@@ -7,6 +7,7 @@ const pool = require('./data/db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const booksRouter = require('./routes/books');
 
 var app = express();
 
@@ -20,8 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(booksRouter); // Use the books routes
+
+const PORT = 4000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,8 +46,9 @@ app.use(function(err, req, res, next) {
 });
 
 process.on('SIGINT', async () => {
-  await pool.end();
-  console.log("MariaDB pool closed");
+  console.log("Shutting down server and closing MariaDB connection pool...");
+  await require('./db').end();
+  console.log("MariaDB pool closed. Server shut down.");
   process.exit(0);
 });
 
